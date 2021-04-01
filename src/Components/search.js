@@ -12,15 +12,30 @@ export default function Search(props) {
 
   const handleChange = (e)=> {
     setQuery(e.target.value)
-    if(query.length>1)
-        BooksAPI.search(query).then((res) => {
-          if(res.error)
-            setError(true);
-          else{
-            setRes(res)
-            setError(false);
-          }
-        });
+    if (e.target.value.length > 0) {
+      BooksAPI.search(e.target.value).then((res) => {
+               BooksAPI.getAll().then((books) => {
+                 res.forEach((book) => {
+                   books.forEach((shelf) => {
+                     if (book.id === shelf.id) {
+                       book.shelf = shelf.shelf;
+                       return;
+                     }
+                   });
+                   if (typeof book.shelf === "undefined") {
+                     book.shelf = "none";
+                   }
+                 });
+               });
+        if (res.error) setError(true);
+        else {
+          setRes(res);
+          setError(false);
+        }
+      });
+    } else if (e.target.value==='') {
+      setRes([])
+    } 
   }
 
   return (
@@ -28,7 +43,7 @@ export default function Search(props) {
       <div className="search-books">
         <div className="search-books-bar">
           <nav>
-            <Link Link to="/">
+            <Link to="/">
               <button className="close-search">Close</button>
             </Link>
           </nav>
@@ -49,8 +64,8 @@ export default function Search(props) {
                 {
                   error && error ? <h1>No Results</h1> : 
                   res.map(book=>{
-                  return(<ul>
-                      <Book key={book} book={book} />
+                  return(<ul key={book.id}>
+                      <Book key={book.id} book={book} update={props.update} />
                     </ul>)
                 }
                   )}              

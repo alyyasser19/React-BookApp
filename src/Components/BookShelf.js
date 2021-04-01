@@ -16,7 +16,7 @@ const BookShelf = (props) => {
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                     {props.currentlyReading.map((book) => (
-                      <li>
+                      <li key={book.id}>
                         <Book key={book.id} book={book} update={props.update} />
                       </li>
                     ))}
@@ -28,7 +28,7 @@ const BookShelf = (props) => {
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                     {props.wantToRead.map((book) => (
-                      <li>
+                      <li key={book.id}>
                         <Book key={book.id} book={book} update={props.update} />
                       </li>
                     ))}
@@ -40,7 +40,7 @@ const BookShelf = (props) => {
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                     {props.read.map((book) => (
-                      <li>
+                      <li key={book.id}>
                         <Book key={book.id} book={book} update={props.update} />
                       </li>
                     ))}

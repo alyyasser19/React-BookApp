@@ -16,9 +16,8 @@ class BooksApp extends React.Component {
 
   search=(query)=>{
     BooksAPI.search(query).then(res=>{
-      this.setState({
-        queryResult: res
-      })
+
+
     })
   }
 
@@ -74,7 +73,7 @@ class BooksApp extends React.Component {
               <Search
                 key="Search"
                 search={this.search}
-
+                update={this.updateBooks}
               />
             </Route>
             {/*Seprate*/}
