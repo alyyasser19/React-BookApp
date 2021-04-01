@@ -28,7 +28,7 @@ export default function Book(props) {
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>
             <option value="read">Read</option>
-            <option value="none">None</option>
+            <option value={"none" || typeof(value===undefined)}>None</option>
           </select>
         </div>
       </div>

@@ -74,6 +74,7 @@ class BooksApp extends React.Component {
                 key="Search"
                 search={this.search}
                 update={this.updateBooks}
+                books={this.state.Books}
               />
             </Route>
             {/*Seprate*/}

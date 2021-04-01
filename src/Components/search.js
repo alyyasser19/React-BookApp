@@ -13,23 +13,24 @@ export default function Search(props) {
   const handleChange = (e)=> {
     setQuery(e.target.value)
     if (e.target.value.length > 0) {
-      BooksAPI.search(e.target.value).then((res) => {
-               BooksAPI.getAll().then((books) => {
-                 res.forEach((book) => {
-                   books.forEach((shelf) => {
+      BooksAPI.search(e.target.value).then((result) => {
+          if(!result.error)
+                 result.forEach((book) => {
+                   props.books.forEach((shelf) => {
                      if (book.id === shelf.id) {
                        book.shelf = shelf.shelf;
                        return;
                      }
-                   });
+                   }
+                   );
                    if (typeof book.shelf === "undefined") {
                      book.shelf = "none";
                    }
-                 });
-               });
-        if (res.error) setError(true);
+                 }
+                 );
+        if (result.error) setError(true);
         else {
-          setRes(res);
+          setRes(result);
           setError(false);
         }
       });
